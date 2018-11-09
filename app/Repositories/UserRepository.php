@@ -18,8 +18,7 @@ class UserRepository implements IUserRepository
     public function store($data)
     {
         // TODO validation
-        // TODO hash password
-        $response = DB::insert('INSERT INTO users (first_name, last_name, email, password, company, country, created_at, updated_at) 
+        return $response = DB::insert('INSERT INTO users (first_name, last_name, email, password, company, country, created_at, updated_at) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
             [
                 $data->first_name,
@@ -32,30 +31,28 @@ class UserRepository implements IUserRepository
                 Carbon::now()
             ]
         );
-
-        return $response;
     }
 
     public function index()
     {
-        $response = DB::select('SELECT * FROM users');
-        return $response;
+        return $response = DB::select('SELECT * FROM users');
     }
 
     public function show($id)
     {
-        $response = DB::select("SELECT * FROM users WHERE id=$id");
-        return $response;
+        return $response = DB::select("SELECT * FROM users WHERE id=$id");
     }
 
     public function update($data, $id)
     {
-        // TODO: Implement update() method.
+        // TODO fix update
+        $data = json_decode($data->getContent(), true);
+        return $response = DB::update("UPDATE users SET WHERE id=$id");
     }
 
     public function destroy($id)
     {
-        // TODO: Implement destroy() method.
+        return $response = DB::delete("DELETE FROM users WHERE id=$id");
     }
 
 

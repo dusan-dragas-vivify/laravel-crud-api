@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $response = $this->userRepo->update($request, $id);
     }
 
     /**
@@ -81,6 +81,6 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $response = $this->userRepo->destroy($id);
     }
 }

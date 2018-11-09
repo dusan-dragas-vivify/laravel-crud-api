@@ -20,3 +20,7 @@ Route::get('/users', 'UserController@index');
 Route::post('/users', 'UserController@store');
 // Get user with given id
 Route::get('/users/{id}', 'UserController@show');
+// Update user with given id
+Route::patch('/users/{id}/update', 'UserController@update');
+// Delete user with given id
+Route::delete('/users/{id}/delete', 'UserController@destroy');
