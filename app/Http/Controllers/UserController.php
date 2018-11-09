@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Repositories\IUserRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    protected $userRepo;
+    private $userRepo;
 
     public function __construct(IUserRepository $IUserRepository)
     {
@@ -36,6 +38,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+            $validatedData = $request->validate([
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'company' => 'required',
+                'country' => 'required',
+            ]);
+        }catch (ValidationException $exception){
+            return response()->json([
+                'status'    => $exception->status,
+                'message'   => $exception->getMessage()
+            ]);
+        }
+
         $response = $this->userRepo->store($request);
         if($response)
         {
@@ -43,8 +61,12 @@ class UserController extends Controller
                 'status' => http_response_code(200),
                 'message' => 'OK'
             ]);
+        }else{
+            return response()->json([
+                'status'    => http_response_code(500),
+                'message'   => 'An error has occurred'
+            ]);
         }
-        // TODO Implement other response cases
     }
 
     /**
