@@ -58,12 +58,12 @@ class UserController extends Controller
         if($response)
         {
             return response()->json([
-                'status' => http_response_code(200),
+                'status' => 200,
                 'message' => 'OK'
             ]);
         }else{
             return response()->json([
-                'status'    => http_response_code(500),
+                'status'    => 500,
                 'message'   => 'An error has occurred'
             ]);
         }

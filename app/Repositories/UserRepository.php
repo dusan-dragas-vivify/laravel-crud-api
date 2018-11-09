@@ -17,20 +17,26 @@ class UserRepository implements IUserRepository
 {
     public function store($data)
     {
-        // TODO validation
-        return $response = DB::insert('INSERT INTO users (first_name, last_name, email, password, company, country, created_at, updated_at) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                $data->first_name,
-                $data->last_name,
-                $data->email,
-                Hash::make($data->password),
-                $data->company,
-                $data->country,
-                Carbon::now(),
-                Carbon::now()
-            ]
-        );
+        try{
+            return $response = DB::insert('INSERT INTO users (first_name, last_name, email, password, company, country, created_at, updated_at) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                [
+                    $data->first_name,
+                    $data->last_name,
+                    $data->email,
+                    Hash::make($data->password),
+                    $data->company,
+                    $data->country,
+                    Carbon::now(),
+                    Carbon::now()
+                ]
+            );
+        }catch (\Exception $exception) {
+            return response()->json([
+                'status'    => $exception->getCode(),
+                'message'   => $exception->getMessage()
+            ]);
+        }
     }
 
     public function index()
