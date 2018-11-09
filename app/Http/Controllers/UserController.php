@@ -11,10 +11,9 @@ class UserController extends Controller
 {
     protected $userRepo;
 
-    // TODO Inversion of control
-    public function __construct()
+    public function __construct(IUserRepository $IUserRepository)
     {
-        $this->userRepo = new UserRepository();
+        $this->userRepo = $IUserRepository;
     }
 
     /**
