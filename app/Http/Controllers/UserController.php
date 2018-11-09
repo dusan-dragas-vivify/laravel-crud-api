@@ -40,6 +40,7 @@ class UserController extends Controller
                 'message' => 'OK'
             ]);
         }
+        // TODO Implement other response cases
     }
 
     /**
