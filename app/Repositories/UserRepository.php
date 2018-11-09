@@ -47,7 +47,7 @@ class UserRepository implements IUserRepository
     {
         // TODO fix update
         $data = json_decode($data->getContent(), true);
-        return $response = DB::update("UPDATE users SET WHERE id=$id");
+        return $response = DB::table('users')->where('id', $id)->update($data);
     }
 
     public function destroy($id)
