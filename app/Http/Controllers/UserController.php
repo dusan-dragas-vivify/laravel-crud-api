@@ -22,7 +22,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $response = $this->userRepo->index();
+        if($response)
+        {
+            return $response;
+        }
     }
 
     /**
@@ -34,7 +38,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $response = $this->userRepo->store($request);
-        if($response){
+        if($response)
+        {
             return response()->json([
                 'status' => http_response_code(200),
                 'message' => 'OK'

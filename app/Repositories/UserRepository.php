@@ -25,7 +25,8 @@ class UserRepository implements IUserRepository
 
     public function index()
     {
-        // TODO: Implement index() method.
+        $response = DB::select('SELECT * FROM users');
+        return $response;
     }
 
     public function show($id)

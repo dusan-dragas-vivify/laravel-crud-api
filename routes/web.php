@@ -14,5 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
+// Get all users
+Route::get('/users', 'UserController@index');
+// Insert new user
 Route::post('/users', 'UserController@store');
