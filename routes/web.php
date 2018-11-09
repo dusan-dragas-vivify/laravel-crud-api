@@ -18,3 +18,5 @@ Route::get('/', function () {
 Route::get('/users', 'UserController@index');
 // Insert new user
 Route::post('/users', 'UserController@store');
+// Get user with given id
+Route::get('/users/{id}', 'UserController@show');

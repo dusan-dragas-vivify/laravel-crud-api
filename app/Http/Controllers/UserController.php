@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\IUserRepository;
 use App\User;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ class UserController extends Controller
 {
     protected $userRepo;
 
+    // TODO Inversion of control
     public function __construct()
     {
         $this->userRepo = new UserRepository();
@@ -56,7 +58,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return $response = $this->userRepo->show($id);
     }
 
     /**

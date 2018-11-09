@@ -9,19 +9,32 @@
 namespace App\Repositories;
 
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements IUserRepository
 {
     public function store($data)
     {
         // TODO validation
-        $response = DB::insert('INSERT INTO users (first_name, last_name, email, password, company, country) 
-        VALUES (?, ?, ?, ?, ?, ?)', [$data->first_name, $data->last_name, $data->email, $data->password, $data->company, $data->country]);
+        // TODO hash password
+        $response = DB::insert('INSERT INTO users (first_name, last_name, email, password, company, country, created_at, updated_at) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                $data->first_name,
+                $data->last_name,
+                $data->email,
+                Hash::make($data->password),
+                $data->company,
+                $data->country,
+                Carbon::now(),
+                Carbon::now()
+            ]
+        );
 
         return $response;
     }
-
 
     public function index()
     {
@@ -31,7 +44,8 @@ class UserRepository implements IUserRepository
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        $response = DB::select("SELECT * FROM users WHERE id=$id");
+        return $response;
     }
 
     public function update($data, $id)
