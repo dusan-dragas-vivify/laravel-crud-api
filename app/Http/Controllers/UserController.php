@@ -51,7 +51,7 @@ class UserController extends Controller
             return response()->json([
                 'status'    => $exception->status,
                 'message'   => $exception->getMessage()
-            ]);
+            ], $exception->status);
         }
 
         $response = $this->userRepo->store($request);
@@ -60,12 +60,12 @@ class UserController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'OK'
-            ]);
+            ], 200);
         }else{
             return response()->json([
                 'status'    => 500,
                 'message'   => 'An error has occurred'
-            ]);
+            ], 500);
         }
     }
 
