@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUser;
 use App\Repositories\IUserRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
@@ -36,23 +35,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        try{
-            $validatedData = $request->validate([
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required',
-                'password' => 'required',
-                'company' => 'required',
-                'country' => 'required',
-            ]);
-        }catch (ValidationException $exception){
-            return response()->json([
-                'status'    => $exception->status,
-                'message'   => $exception->getMessage()
-            ], $exception->status);
-        }
+        $validatedData = $request->validated();
 
         $response = $this->userRepo->store($request);
         if($response)
